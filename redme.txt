@@ -1,0 +1,4 @@
+Para entar no sistema 
+
+user : admin
+pass : 123
