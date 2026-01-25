@@ -18,7 +18,8 @@ $consultas = $stmt->fetchAll();
 <body>
     <h1>Consultas</h1>
     <a href="../index.php">Voltar</a> |
-    <a href="create.php">Registrar Consulta</a>
+    <a href="create.php">Registrar Consulta</a> |
+    <a href="relatorio.php" target="_blank">📄 Exportar PDF</a>
     <table border="1" cellpadding="6">
         <thead><tr><th>Médico</th><th>Paciente</th><th>Data / Hora</th><th>Observações</th><th>Ações</th></tr></thead>
         <tbody>
