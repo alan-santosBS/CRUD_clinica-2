@@ -1,11 +1,19 @@
 CREATE DATABASE clinica;
 USE clinica;
 
+-- Tabela Usuários
+CREATE TABLE usuarios (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    usuario VARCHAR(50) NOT NULL UNIQUE,
+    senha VARCHAR(32) NOT NULL
+);
+
 -- Tabela Médico
 CREATE TABLE medico (
     id INT AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(100) NOT NULL,
-    especialidade VARCHAR(100) NOT NULL
+    especialidade VARCHAR(100) NOT NULL,
+    imagem_perfil VARCHAR(255) NULL
 );
 
 -- Tabela Paciente
@@ -13,7 +21,8 @@ CREATE TABLE paciente (
     id INT AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(100) NOT NULL,
     data_nascimento DATE NOT NULL,
-    tipo_sanguineo VARCHAR(3) NOT NULL
+    tipo_sanguineo VARCHAR(3) NOT NULL,
+    imagem_perfil VARCHAR(255) NULL
 );
 
 -- Tabela Consulta (tabela N-N)

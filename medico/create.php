@@ -5,9 +5,24 @@ require_once __DIR__ . '/../db.php';
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $nome = $_POST['nome'] ?? '';
     $especialidade = $_POST['especialidade'] ?? '';
+    $imagem_perfil = null;
 
-    $stmt = $pdo->prepare('INSERT INTO medico (nome, especialidade) VALUES (?, ?)');
-    $stmt->execute([$nome, $especialidade]);
+    // Processa upload da imagem, se houver
+    if (isset($_FILES['imagem_perfil']) && $_FILES['imagem_perfil']['error'] === UPLOAD_ERR_OK) {
+        $uploadDir = __DIR__ . '/../uploads/';
+        if (!is_dir($uploadDir)) {
+            mkdir($uploadDir, 0777, true);
+        }
+        $ext = pathinfo($_FILES['imagem_perfil']['name'], PATHINFO_EXTENSION);
+        $nomeArquivo = uniqid('medico_', true) . '.' . $ext;
+        $caminhoCompleto = $uploadDir . $nomeArquivo;
+        if (move_uploaded_file($_FILES['imagem_perfil']['tmp_name'], $caminhoCompleto)) {
+            $imagem_perfil = 'uploads/' . $nomeArquivo;
+        }
+    }
+
+    $stmt = $pdo->prepare('INSERT INTO medico (nome, especialidade, imagem_perfil) VALUES (?, ?, ?)');
+    $stmt->execute([$nome, $especialidade, $imagem_perfil]);
 
     header('Location: index.php');
     exit;
